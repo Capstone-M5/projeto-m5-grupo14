@@ -1,3 +1,4 @@
+from email.policy import default
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 import uuid
@@ -6,4 +7,5 @@ import uuid
 class User(AbstractUser):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
     name = models.CharField(max_length=128)
+    is_premiun = models.BooleanField(default=False)
     ...
