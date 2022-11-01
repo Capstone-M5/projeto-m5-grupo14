@@ -28,5 +28,5 @@ class VideoSerializer(serializers.ModelSerializer):
 class VideoListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Video
-        exclude = ["users"]
+        exclude = ["users", "reviews"]
     ...
