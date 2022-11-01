@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from reviews.models import Review
+from videos.models import Video
 
-from videos.serializers import VideoSerializer
 from .models import User
 
 
@@ -25,9 +25,15 @@ class UserReviewListSerializer(serializers.ModelSerializer):
         exclude = ["users"]
 
 
-class UserRetriveUpdateSerializer(serializers.ModelSerializer):
+class VideoListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Video
+        exclude = ["users", "reviews"]
+    ...
 
-    videos = VideoSerializer(many=True, read_only=True)
+
+class UserRetriveUpdateSerializer(serializers.ModelSerializer):
+    videos = VideoListSerializer(many=True, read_only=True)
     reviews = UserReviewListSerializer(many=True, read_only=True)
 
     class Meta:
