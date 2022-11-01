@@ -7,7 +7,7 @@ class Video(models.Model):
     title = models.CharField(max_length=128)
     thumbnail = models.CharField(max_length=128)
     link = models.CharField(max_length=128)
-    downloads = models.PositiveIntegerField(default=1)
+    downloads = models.PositiveIntegerField(default=0)
     users = models.ManyToManyField(
         "users.User", on_delete=models.CASCADE, related_name="videos"
     )
