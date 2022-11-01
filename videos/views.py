@@ -7,7 +7,7 @@ from .models import Video
 from .serializers import VideoSerializer
 import requests
 from traitlets import Bool, Instance
-from videos.serializers import VideoSerializer
+from videos.serializers import VideoSerializer, VideoListSerializer
 import ipdb
 
 # Create your views here.
@@ -41,7 +41,7 @@ class CreateVideoView(APIView):
 
 class ListTopVideosView(generics.ListAPIView):
     queryset = Video.objects.all()
-    serializer_class = VideoSerializer
+    serializer_class = VideoListSerializer
 
     def get_queryset(self):
         return self.queryset.order_by("downloads")[0:10]

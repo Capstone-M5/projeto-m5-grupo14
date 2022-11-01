@@ -23,3 +23,10 @@ class VideoSerializer(serializers.ModelSerializer):
         return movie
         ...
     ...
+
+
+class VideoListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Video
+        exclude = ["users"]
+    ...
