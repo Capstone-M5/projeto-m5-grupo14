@@ -4,5 +4,6 @@ from users import views
 
 urlpatterns = [
     path("register/", views.AccountsViews.as_view()),
-    path("login/", ObtainAuthToken.as_view()),    
+    path("login/", ObtainAuthToken.as_view()),  
+    path("profile/me/", views.AccountsDetailsViews.as_view()),  
 ]
