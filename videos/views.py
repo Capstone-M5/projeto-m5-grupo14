@@ -6,11 +6,9 @@ from pytube import YouTube
 from .models import Video
 from .serializers import VideoSerializer
 import requests
-from traitlets import Bool, Instance
+from traitlets import Bool
 from videos.serializers import VideoSerializer, VideoListSerializer
 import ipdb
-
-# Create your views here.
 
 
 class CreateVideoView(APIView):
@@ -45,4 +43,3 @@ class ListTopVideosView(generics.ListAPIView):
 
     def get_queryset(self):
         return self.queryset.order_by("downloads")[0:10]
-        ...

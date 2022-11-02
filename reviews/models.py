@@ -20,4 +20,3 @@ class Review(models.Model):
     video = models.ForeignKey(
         "videos.Video", on_delete=models.CASCADE, related_name="reviews"
     )
-    ...

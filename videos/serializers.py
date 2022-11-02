@@ -6,12 +6,11 @@ from django.core.exceptions import ObjectDoesNotExist
 
 
 class VideoSerializer(serializers.ModelSerializer):
-    users = UserSerializer(many=True, read_only=True)
+    users = UserSerializer(many=True, read_only=True,  required=False)
 
     class Meta:
         model = Video
         exclude = ["downloads", "link"]
-        ...
 
     def create(self, validated_data):
 
@@ -21,12 +20,9 @@ class VideoSerializer(serializers.ModelSerializer):
         movie.downloads = movie.downloads + 1
         movie.save()
         return movie
-        ...
-    ...
 
 
 class VideoListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Video
-        exclude = ["users", "reviews"]
-    ...
+        exclude = ["users"]

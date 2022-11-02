@@ -1,5 +1,6 @@
 from django.db import models
 import uuid
+from users.models import User
 
 
 class Video(models.Model):
@@ -8,5 +9,11 @@ class Video(models.Model):
     thumbnail = models.CharField(max_length=128)
     link = models.CharField(max_length=128, unique=True)
     downloads = models.PositiveIntegerField(default=0)
-    users = models.ManyToManyField("users.User", related_name="videos")
-    ...
+    users = models.ManyToManyField(
+        "users.User", through="Downloaded", related_name="videos", blank=True)
+
+
+class Downloaded(models.Model):
+    video = models.ForeignKey(Video, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, blank=True, null=True)
