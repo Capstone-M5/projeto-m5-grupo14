@@ -6,7 +6,7 @@ from django.core.exceptions import ObjectDoesNotExist
 
 
 class VideoSerializer(serializers.ModelSerializer):
-    users = UserSerializer(many=True, read_only=True,  required=False)
+    users = UserSerializer(many=True, read_only=True)
 
     class Meta:
         model = Video
