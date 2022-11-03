@@ -17,7 +17,6 @@ class CreateVideoViewTest(APITestCase):
 
     def test_can_download_video(self):
         response = self.client.post(self.create_video_url, self.video1)
-        print(response.data)
         expected_status_code = status.HTTP_200_OK
         result_status_code = response.status_code
 
@@ -56,9 +55,10 @@ class CreateVideoViewTest(APITestCase):
         self.assertSetEqual(expected_keys, result_keys)
 
     def test_downloads_counter(self):
-        response = self.client.post(self.create_video_url, self.video1)
+        self.client.post(self.create_video_url, self.video1)
+        self.client.post(self.create_video_url, self.video1)
         videos = self.client.get(f"/api/videos/")
         video_id = videos.data.get("results")[0]["id"]
         video = self.client.get(f"{self.create_video_url}{video_id}/")
 
-        self.assertSetEqual(4, video.data["downloads"])
+        self.assertEqual(2, video.data["downloads"])
