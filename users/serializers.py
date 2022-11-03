@@ -67,4 +67,3 @@ class SoftDeleteSerializer(serializers.ModelSerializer):
             "videos",
             "reviews"
         ]
-        

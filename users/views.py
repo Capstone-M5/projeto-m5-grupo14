@@ -41,6 +41,7 @@ class ListAccountViews(generics.RetrieveAPIView):
 @extend_schema(methods=["PUT"], exclude=True)
 class SoftDeleteViews(generics.RetrieveUpdateAPIView):
     authentication_classes = [TokenAuthentication]
+
     permission_classes = [IsAuthenticated]
 
     queryset = User.objects.all()

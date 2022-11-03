@@ -53,4 +53,4 @@ class ListTopVideosView(generics.ListAPIView):
     pagination_class = CustomPageNumberPagination
 
     def get_queryset(self):
-        return self.queryset.order_by("downloads")[0:10]
+        return self.queryset.order_by("-downloads")[0:10]
