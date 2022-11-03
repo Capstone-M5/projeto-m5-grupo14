@@ -4,6 +4,7 @@ from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework import generics
 
 from drf_spectacular.utils import extend_schema
+from psytube.pagination import CustomPageNumberPagination
 
 
 from users.models import User
@@ -23,6 +24,8 @@ class AccountsDetailsViews(generics.RetrieveUpdateAPIView):
     queryset = User.objects.all()
     serializer_class = UserRetriveUpdateSerializer
 
+    pagination_class = CustomPageNumberPagination
+
     def get_object(self):
         return self.request.user
 
@@ -30,5 +33,8 @@ class AccountsDetailsViews(generics.RetrieveUpdateAPIView):
 class UsersViews(generics.ListAPIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated, IsAdminUser]
+
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+    pagination_class = CustomPageNumberPagination
