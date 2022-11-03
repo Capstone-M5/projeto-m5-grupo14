@@ -7,8 +7,10 @@ from users.models import User
 from videos.models import Video
 
 # Create your tests here.
+
+
 class VideoModelTest(APITestCase):
-    
+
     @classmethod
     def setUpTestData(cls):
         cls.video_data = {
@@ -25,23 +27,16 @@ class VideoModelTest(APITestCase):
         }
 
         cls.user = User.objects.create_user(**cls.user_data)
-        cls.videos = [Video.objects.create(**cls.video_data, link = f"http://youtube.com/adasdadasd{i}") for i in range(10)]
-        
-    
+        cls.videos = [Video.objects.create(
+            **cls.video_data, link=f"http://youtube.com/adasdadasd{i}") for i in range(10)]
+
     def test_atributes_model_video(self):
-        
+
         max_length_title = self.videos[0]._meta.get_field('title').max_length
         self.assertEqual(
-            max_length_title, 
+            max_length_title,
             128,
             "Verifique se a propriedade title da model Video tem o tamanho max. de 128 caracteres"
-        )
-
-        max_length_thumbnail = self.videos[0]._meta.get_field('thumbnail').max_length
-        self.assertEqual(
-            max_length_thumbnail, 
-            128,
-            "Verifique se a propriedade thumbnail da model Video tem o tamanho max. de 128 caracteres"
         )
 
         type_of_downloads = self.videos[0]._meta.get_field('downloads')
@@ -50,12 +45,11 @@ class VideoModelTest(APITestCase):
             "Verifique se a propriedade dowloads da model Video é um integer"
         )
 
-
     def test_user_can_be_attached_to_multiple_videos(self):
 
         for video in self.videos:
-            self.user.videos.add(video)                        
-        
+            self.user.videos.add(video)
+
         self.assertEquals(len(self.videos), self.user.videos.count())
 
         for video in self.videos:
