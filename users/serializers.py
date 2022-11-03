@@ -43,9 +43,15 @@ class UserRetriveUpdateSerializer(serializers.ModelSerializer):
         ]
 
 
+class ReviewSerializerSoftDelete(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = "__all__"
+
+
 class SoftDeleteSerializer(serializers.ModelSerializer):
     videos = VideoListSerializer(many=True, read_only=True)
-    reviews = UserReviewListSerializer(many=True, read_only=True)
+    reviews = ReviewSerializerSoftDelete(many=True, read_only=True)
 
     class Meta:
         model = User
