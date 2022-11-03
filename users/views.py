@@ -8,7 +8,7 @@ from psytube.pagination import CustomPageNumberPagination
 
 
 from users.models import User
-from users.serializers import UserRetriveUpdateSerializer, UserSerializer
+from users.serializers import SoftDeleteSerializer, UserRetriveUpdateSerializer, UserSerializer
 
 
 class AccountsViews(generics.CreateAPIView):
@@ -28,6 +28,25 @@ class AccountsDetailsViews(generics.RetrieveUpdateAPIView):
 
     def get_object(self):
         return self.request.user
+
+
+class ListAccountViews(generics.RetrieveAPIView):
+
+    queryset = User.objects.all()
+    serializer_class = UserRetriveUpdateSerializer
+
+    pagination_class = CustomPageNumberPagination
+
+
+@extend_schema(methods=["PUT"], exclude=True)
+class SoftDeleteViews(generics.RetrieveUpdateAPIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    queryset = User.objects.all()
+    serializer_class = SoftDeleteSerializer
+
+    pagination_class = CustomPageNumberPagination
 
 
 class UsersViews(generics.ListAPIView):
