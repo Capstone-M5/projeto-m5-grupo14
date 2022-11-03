@@ -1,6 +1,6 @@
 import ipdb
 from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAdminUser, IsAuthenticated
+from rest_framework.permissions import IsAuthenticated
 from rest_framework import generics
 
 from drf_spectacular.utils import extend_schema
@@ -21,9 +21,7 @@ class AccountsDetailsViews(generics.RetrieveUpdateAPIView):
     permission_classes = [IsAuthenticated]
 
     queryset = User.objects.all()
-    serializer_class =  UserRetriveUpdateSerializer
+    serializer_class = UserRetriveUpdateSerializer
 
     def get_object(self):
         return self.request.user
-
-    
