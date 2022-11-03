@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from users.serializers import UserSerializer
+from reviews.serializers import ReviewSerializer
 from .models import Video
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -15,7 +16,8 @@ class VideoSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
 
         movie, _ = Video.objects.get_or_create(
-            link=validated_data["link"], defaults={**validated_data})
+            link=validated_data["link"], defaults={**validated_data}
+        )
 
         movie.downloads = movie.downloads + 1
         movie.save()
@@ -25,4 +27,13 @@ class VideoSerializer(serializers.ModelSerializer):
 class VideoListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Video
+        exclude = ["users"]
+
+
+class VideoListDetailSerializer(serializers.ModelSerializer):
+    reviews = ReviewSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Video
+
         exclude = ["users"]

@@ -6,7 +6,7 @@ from pytube import YouTube
 
 from psytube.pagination import CustomPageNumberPagination
 from .models import Video
-from .serializers import VideoSerializer
+from .serializers import VideoListDetailSerializer, VideoSerializer
 import requests
 from traitlets import Bool
 from videos.serializers import VideoSerializer, VideoListSerializer
@@ -54,3 +54,10 @@ class ListTopVideosView(generics.ListAPIView):
 
     def get_queryset(self):
         return self.queryset.order_by("-downloads")[0:10]
+
+
+class ListDetailVideosView(generics.RetrieveAPIView):
+    queryset = Video.objects.all()
+    serializer_class = VideoListDetailSerializer
+
+    pagination_class = CustomPageNumberPagination
