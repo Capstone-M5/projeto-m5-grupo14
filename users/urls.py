@@ -7,6 +7,5 @@ urlpatterns = [
     path("login/", ObtainAuthToken.as_view()),
     path("profile/me/", views.AccountsDetailsViews.as_view()),
     path("profile/", views.UsersViews.as_view()),
-    path("profile/<pk>/", views.ListAccountViews.as_view()),
-    path("profile/<pk>/", views.SoftDeleteViews.as_view()),
+    path("profile/<pk>/", views.ListUserAndSoftDeleteViews.as_view()),
 ]
