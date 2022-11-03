@@ -37,3 +37,5 @@ class VideoListDetailSerializer(serializers.ModelSerializer):
         model = Video
 
         exclude = ["users"]
+
+
