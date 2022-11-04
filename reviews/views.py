@@ -1,20 +1,14 @@
-
-from rest_framework.generics import RetrieveUpdateDestroyAPIView
 from drf_spectacular.utils import extend_schema
 from rest_framework.generics import RetrieveUpdateDestroyAPIView, ListCreateAPIView
 from rest_framework.permissions import IsAuthenticated
-
 from .models import Review
 from .serializers import ReviewSerializer
 from .permissions import IsAdmin_Or_ReviewOwner
 from django.shortcuts import get_object_or_404
 from videos.models import Video
-from uuid import UUID
 from rest_framework.views import status
 from rest_framework.response import Response
 from django.core.exceptions import ValidationError
-
-# Create your views here.
 
 
 class ListCreateReview(ListCreateAPIView):
