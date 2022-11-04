@@ -45,7 +45,7 @@ class VideoModelTest(APITestCase):
             "Verifique se a propriedade dowloads da model Video é um integer"
         )
 
-    def test_user_can_be_attached_to_multiple_videos(self):
+    def test_multiple_videos_can_be_attached_to_one_user(self):
 
         for video in self.videos:
             self.user.videos.add(video)
