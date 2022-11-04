@@ -4,6 +4,7 @@ from users.serializers import UserSerializer
 from .models import Review
 from videos.models import Video
 
+
 class VideoListDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -30,6 +31,3 @@ class ReviewSerializer(serializers.ModelSerializer):
         instance.save()
 
         return instance
-
-
-
