@@ -10,8 +10,9 @@ class Review(models.Model):
     rating = models.PositiveIntegerField(
         validators=[
             MaxValueValidator(10),
-            MinValueValidator(1)
-        ])
+            MinValueValidator(1),
+        ],
+    )
     created_at = models.DateField(auto_now_add=True)
 
     user = models.ForeignKey(
