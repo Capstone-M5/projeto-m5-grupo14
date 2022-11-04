@@ -34,14 +34,15 @@ class ReviewModelTest(TestCase):
         cls.video = Video.objects.create(**cls.video_data_1)
 
         cls.reviews = [
-            Review.objects.create(**cls.review_data, video=cls.video, user=cls.user)
+            Review.objects.create(
+                **cls.review_data, video=cls.video, user=cls.user)
             for _ in range(10)
         ]
         cls.comentario = Review.objects.create(
             **cls.review_data, video=cls.video, user=cls.user
         )
 
-    def test_atributes_model_video(self):
+    def test_atributes_model_review(self):
         review = self.reviews[0]
         text = review._meta.get_field("text").max_length
         rating = review._meta.get_field("rating")
@@ -53,6 +54,10 @@ class ReviewModelTest(TestCase):
         self.assertEqual(text, 400, msg[0])
         self.assertTrue(isinstance(rating, IntegerField), msg[1])
 
+    def test_review_fields(self):
+        self.assertEqual(self.review_data["text"], self.comentario.text)
+        self.assertEqual(self.review_data["rating"], self.comentario.rating)
+
     def test_multiple_reviews_can_be_attached_to_one_user(self):
         contador = 0
 
@@ -60,7 +65,3 @@ class ReviewModelTest(TestCase):
             if review.user.id == self.user.id:
                 contador = contador + 1
         self.assertEqual(len(self.reviews), contador, "erroasr")
-
-    def test_review_fields(self):
-        self.assertEqual(self.review_data["text"], self.comentario.text)
-        self.assertEqual(self.review_data["rating"], self.comentario.rating)
