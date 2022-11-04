@@ -154,5 +154,10 @@ REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 6,
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
 
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'PSYTUBE API',
+    'DESCRIPTION': 'Application designed to facilitate the downloading of videos from Youtube',
+    'VERSION': '1.0.0',
 }

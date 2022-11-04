@@ -21,7 +21,7 @@ class VideoListSerializer(serializers.ModelSerializer):
         exclude = ["users"]
 
 
-class ReviewSerializer(serializers.ModelSerializer):
+class UserReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = "__all__"
@@ -29,7 +29,7 @@ class ReviewSerializer(serializers.ModelSerializer):
 
 class UserRetriveUpdateSerializer(serializers.ModelSerializer):
     videos = VideoListSerializer(many=True, read_only=True)
-    reviews = ReviewSerializer(many=True, read_only=True)
+    reviews = UserReviewSerializer(many=True, read_only=True)
 
     class Meta:
         model = User
@@ -45,7 +45,7 @@ class UserRetriveUpdateSerializer(serializers.ModelSerializer):
 
 class SoftDeleteSerializer(serializers.ModelSerializer):
     videos = VideoListSerializer(many=True, read_only=True)
-    reviews = ReviewSerializer(many=True, read_only=True)
+    reviews = UserReviewSerializer(many=True, read_only=True)
 
     class Meta:
         model = User

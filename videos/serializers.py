@@ -24,18 +24,15 @@ class VideoSerializer(serializers.ModelSerializer):
         return movie
 
 
-class VideoListSerializer(serializers.ModelSerializer):
+class ListTopVideoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Video
         exclude = ["users"]
 
 
-class VideoListDetailSerializer(serializers.ModelSerializer):
+class ListVideoDetailSerializer(serializers.ModelSerializer):
     reviews = ReviewSerializer(many=True, read_only=True)
 
     class Meta:
         model = Video
-
         exclude = ["users"]
-
-

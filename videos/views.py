@@ -6,14 +6,17 @@ from pytube import YouTube
 
 from psytube.pagination import CustomPageNumberPagination
 from .models import Video
-from .serializers import VideoListDetailSerializer, VideoSerializer
+from .serializers import ListVideoDetailSerializer, VideoSerializer
 import requests
 from traitlets import Bool
-from videos.serializers import VideoSerializer, VideoListSerializer
+from videos.serializers import VideoSerializer, ListTopVideoSerializer
 import ipdb
 
 
 class CreateVideoView(APIView):
+    queryset = Video
+    serializer_class = VideoSerializer
+
     def post(self, request):
         try:
             yt = YouTube(request.data["link"])
@@ -48,7 +51,7 @@ class CreateVideoView(APIView):
 
 class ListTopVideosView(generics.ListAPIView):
     queryset = Video.objects.all()
-    serializer_class = VideoListSerializer
+    serializer_class = ListTopVideoSerializer
 
     pagination_class = CustomPageNumberPagination
 
@@ -58,6 +61,6 @@ class ListTopVideosView(generics.ListAPIView):
 
 class ListDetailVideosView(generics.RetrieveAPIView):
     queryset = Video.objects.all()
-    serializer_class = VideoListDetailSerializer
+    serializer_class = ListVideoDetailSerializer
 
     pagination_class = CustomPageNumberPagination
