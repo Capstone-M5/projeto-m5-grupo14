@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
-#import dj_database_url
+import dj_database_url
 import os
 import dotenv
 
@@ -96,13 +96,12 @@ DATABASES = {
 }
 
 
-"""DATABASE_URL = os.getenv("DATABASE_URL")
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 if DATABASE_URL:
     db = dj_database_url.config(default=DATABASE_URL)
     DATABASES["default"].update(db)
-
-    DEBUG = False"""
+    DEBUG = False
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
