@@ -1,0 +1,807 @@
+openapi: 3.0.3
+info:
+  title: PSYTUBE API
+  version: 1.0.0
+  description: Application designed to facilitate the downloading of videos from Youtube
+paths:
+  /api/login/:
+    post:
+      operationId: api_login_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AuthToken'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AuthToken'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthToken'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthToken'
+          description: ''
+  /api/profile/:
+    get:
+      operationId: api_profile_list
+      parameters:
+      - name: pagina
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: total_resultados
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedUserList'
+          description: ''
+  /api/profile/{id}/:
+    get:
+      operationId: api_profile_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this user.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SoftDelete'
+          description: ''
+    patch:
+      operationId: api_profile_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this user.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedSoftDelete'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedSoftDelete'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedSoftDelete'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SoftDelete'
+          description: ''
+  /api/profile/me/:
+    get:
+      operationId: api_profile_me_retrieve
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserRetriveUpdate'
+          description: ''
+    patch:
+      operationId: api_profile_me_partial_update
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUserRetriveUpdate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUserRetriveUpdate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUserRetriveUpdate'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserRetriveUpdate'
+          description: ''
+  /api/register/:
+    post:
+      operationId: api_register_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      security:
+      - tokenAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+  /api/video/:
+    post:
+      operationId: api_video_create
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/video/{id}/:
+    get:
+      operationId: api_video_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this video.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListVideoDetail'
+          description: ''
+  /api/video/{id}/review/:
+    get:
+      operationId: api_video_review_list
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this review.
+        required: true
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedReviewList'
+          description: ''
+    post:
+      operationId: api_video_review_create
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this review.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Review'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Review'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Review'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+          description: ''
+  /api/video/review/{id}/:
+    get:
+      operationId: api_video_review_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this review.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+          description: ''
+    patch:
+      operationId: api_video_review_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this review.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedReview'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedReview'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedReview'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+          description: ''
+    delete:
+      operationId: api_video_review_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this review.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/videos/:
+    get:
+      operationId: api_videos_list
+      parameters:
+      - name: pagina
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: total_resultados
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedListTopVideoList'
+          description: ''
+components:
+  schemas:
+    AuthToken:
+      type: object
+      properties:
+        username:
+          type: string
+          writeOnly: true
+        password:
+          type: string
+          writeOnly: true
+        token:
+          type: string
+          readOnly: true
+      required:
+      - password
+      - token
+      - username
+    ListTopVideo:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        title:
+          type: string
+          maxLength: 128
+        thumbnail:
+          type: string
+        link:
+          type: string
+          maxLength: 128
+        downloads:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+      required:
+      - id
+      - link
+      - thumbnail
+      - title
+    ListVideoDetail:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        reviews:
+          type: array
+          items:
+            $ref: '#/components/schemas/Review'
+          readOnly: true
+        title:
+          type: string
+          maxLength: 128
+        thumbnail:
+          type: string
+        link:
+          type: string
+          maxLength: 128
+        downloads:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+      required:
+      - id
+      - link
+      - reviews
+      - thumbnail
+      - title
+    PaginatedListTopVideoList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?pagina=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?pagina=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ListTopVideo'
+    PaginatedReviewList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Review'
+    PaginatedUserList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?pagina=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?pagina=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+    PatchedReview:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        user:
+          allOf:
+          - $ref: '#/components/schemas/User'
+          readOnly: true
+        video:
+          allOf:
+          - $ref: '#/components/schemas/VideoListDetail'
+          readOnly: true
+        text:
+          type: string
+          maxLength: 400
+        rating:
+          type: integer
+          maximum: 10
+          minimum: 1
+        created_at:
+          type: string
+          format: date
+          readOnly: true
+    PatchedSoftDelete:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        username:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          readOnly: true
+        email:
+          type: string
+          format: email
+          readOnly: true
+        videos:
+          type: array
+          items:
+            $ref: '#/components/schemas/VideoList'
+          readOnly: true
+        reviews:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserReview'
+          readOnly: true
+        is_active:
+          type: boolean
+          title: Active
+          description: Designates whether this user should be treated as active. Unselect
+            this instead of deleting accounts.
+    PatchedUserRetriveUpdate:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        username:
+          type: string
+          maxLength: 128
+        name:
+          type: string
+          maxLength: 128
+        email:
+          type: string
+          format: email
+          maxLength: 128
+        videos:
+          type: array
+          items:
+            $ref: '#/components/schemas/VideoList'
+          readOnly: true
+        reviews:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserReview'
+          readOnly: true
+    Review:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        user:
+          allOf:
+          - $ref: '#/components/schemas/User'
+          readOnly: true
+        video:
+          allOf:
+          - $ref: '#/components/schemas/VideoListDetail'
+          readOnly: true
+        text:
+          type: string
+          maxLength: 400
+        rating:
+          type: integer
+          maximum: 10
+          minimum: 1
+        created_at:
+          type: string
+          format: date
+          readOnly: true
+      required:
+      - created_at
+      - id
+      - rating
+      - text
+      - user
+      - video
+    SoftDelete:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        username:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          readOnly: true
+        email:
+          type: string
+          format: email
+          readOnly: true
+        videos:
+          type: array
+          items:
+            $ref: '#/components/schemas/VideoList'
+          readOnly: true
+        reviews:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserReview'
+          readOnly: true
+        is_active:
+          type: boolean
+          title: Active
+          description: Designates whether this user should be treated as active. Unselect
+            this instead of deleting accounts.
+      required:
+      - email
+      - id
+      - name
+      - reviews
+      - username
+      - videos
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        username:
+          type: string
+          maxLength: 128
+        name:
+          type: string
+          maxLength: 128
+        password:
+          type: string
+          writeOnly: true
+          maxLength: 128
+        email:
+          type: string
+          format: email
+          maxLength: 128
+      required:
+      - email
+      - id
+      - name
+      - password
+      - username
+    UserRetriveUpdate:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        username:
+          type: string
+          maxLength: 128
+        name:
+          type: string
+          maxLength: 128
+        email:
+          type: string
+          format: email
+          maxLength: 128
+        videos:
+          type: array
+          items:
+            $ref: '#/components/schemas/VideoList'
+          readOnly: true
+        reviews:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserReview'
+          readOnly: true
+      required:
+      - email
+      - id
+      - name
+      - reviews
+      - username
+      - videos
+    UserReview:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        text:
+          type: string
+          maxLength: 400
+        rating:
+          type: integer
+          maximum: 10
+          minimum: 1
+        created_at:
+          type: string
+          format: date
+          readOnly: true
+        user:
+          type: string
+          format: uuid
+        video:
+          type: string
+          format: uuid
+      required:
+      - created_at
+      - id
+      - rating
+      - text
+      - user
+      - video
+    VideoList:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        title:
+          type: string
+          maxLength: 128
+        thumbnail:
+          type: string
+        link:
+          type: string
+          maxLength: 128
+        downloads:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+      required:
+      - id
+      - link
+      - thumbnail
+      - title
+    VideoListDetail:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        title:
+          type: string
+          maxLength: 128
+        thumbnail:
+          type: string
+        link:
+          type: string
+          maxLength: 128
+        downloads:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+      required:
+      - id
+      - link
+      - thumbnail
+      - title
+  securitySchemes:
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Token-based authentication with required prefix "Token"

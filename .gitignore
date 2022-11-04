@@ -2,3 +2,6 @@ __pycache__
 venv
 db.sqlite3
 .env
+$ZSH_CUSTOM
+.vscode
+media
