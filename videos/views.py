@@ -6,16 +6,15 @@ from pytube import YouTube
 
 from psytube.pagination import CustomPageNumberPagination
 from .models import Video
-from .serializers import ListVideoDetailSerializer, VideoSerializer
+from .serializers import ListVideoDetailSerializer, VideoSerializer, VideoPostSerializer, ListTopVideoSerializer
 import requests
 from traitlets import Bool
-from videos.serializers import VideoSerializer, ListTopVideoSerializer
 import ipdb
 
 
 class CreateVideoView(APIView):
     queryset = Video
-    serializer_class = VideoSerializer
+    serializer_class = VideoPostSerializer
 
     def post(self, request):
         try:
