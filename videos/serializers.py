@@ -3,7 +3,6 @@ from rest_framework import serializers
 from users.serializers import UserSerializer
 from reviews.serializers import ReviewSerializer
 from .models import Video
-from django.core.exceptions import ObjectDoesNotExist
 
 
 class VideoSerializer(serializers.ModelSerializer):
@@ -22,6 +21,13 @@ class VideoSerializer(serializers.ModelSerializer):
         movie.downloads = movie.downloads + 1
         movie.save()
         return movie
+
+
+class VideoPostSerializer(serializers.Serializer):
+    title = serializers.CharField(read_only=True)
+    thumbnail = serializers.CharField(read_only=True)
+    link = serializers.CharField(max_length=128)
+    download_url = serializers.CharField(read_only=True)
 
 
 class ListTopVideoSerializer(serializers.ModelSerializer):

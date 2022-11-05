@@ -8,368 +8,368 @@ paths:
     post:
       operationId: api_login_create
       tags:
-      - api
+        - api
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/AuthToken'
+              $ref: "#/components/schemas/AuthToken"
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/AuthToken'
+              $ref: "#/components/schemas/AuthToken"
           application/json:
             schema:
-              $ref: '#/components/schemas/AuthToken'
+              $ref: "#/components/schemas/AuthToken"
         required: true
       security:
-      - tokenAuth: []
+        - tokenAuth: []
       responses:
-        '200':
+        "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AuthToken'
-          description: ''
+                $ref: "#/components/schemas/AuthToken"
+          description: ""
   /api/profile/:
     get:
       operationId: api_profile_list
       parameters:
-      - name: pagina
-        required: false
-        in: query
-        description: A page number within the paginated result set.
-        schema:
-          type: integer
-      - name: total_resultados
-        required: false
-        in: query
-        description: Number of results to return per page.
-        schema:
-          type: integer
+        - name: pagina
+          required: false
+          in: query
+          description: A page number within the paginated result set.
+          schema:
+            type: integer
+        - name: total_resultados
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
       tags:
-      - api
+        - api
       security:
-      - tokenAuth: []
+        - tokenAuth: []
       responses:
-        '200':
+        "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PaginatedUserList'
-          description: ''
+                $ref: "#/components/schemas/PaginatedUserList"
+          description: ""
   /api/profile/{id}/:
     get:
       operationId: api_profile_retrieve
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this user.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this user.
+          required: true
       tags:
-      - api
+        - api
       security:
-      - tokenAuth: []
+        - tokenAuth: []
       responses:
-        '200':
+        "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SoftDelete'
-          description: ''
+                $ref: "#/components/schemas/SoftDelete"
+          description: ""
     patch:
       operationId: api_profile_partial_update
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this user.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this user.
+          required: true
       tags:
-      - api
+        - api
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PatchedSoftDelete'
+              $ref: "#/components/schemas/PatchedSoftDelete"
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/PatchedSoftDelete'
+              $ref: "#/components/schemas/PatchedSoftDelete"
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/PatchedSoftDelete'
+              $ref: "#/components/schemas/PatchedSoftDelete"
       security:
-      - tokenAuth: []
+        - tokenAuth: []
       responses:
-        '200':
+        "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SoftDelete'
-          description: ''
+                $ref: "#/components/schemas/SoftDelete"
+          description: ""
   /api/profile/me/:
     get:
       operationId: api_profile_me_retrieve
       tags:
-      - api
+        - api
       security:
-      - tokenAuth: []
+        - tokenAuth: []
       responses:
-        '200':
+        "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserRetriveUpdate'
-          description: ''
+                $ref: "#/components/schemas/UserRetriveUpdate"
+          description: ""
     patch:
       operationId: api_profile_me_partial_update
       tags:
-      - api
+        - api
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PatchedUserRetriveUpdate'
+              $ref: "#/components/schemas/PatchedUserRetriveUpdate"
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/PatchedUserRetriveUpdate'
+              $ref: "#/components/schemas/PatchedUserRetriveUpdate"
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/PatchedUserRetriveUpdate'
+              $ref: "#/components/schemas/PatchedUserRetriveUpdate"
       security:
-      - tokenAuth: []
+        - tokenAuth: []
       responses:
-        '200':
+        "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserRetriveUpdate'
-          description: ''
+                $ref: "#/components/schemas/UserRetriveUpdate"
+          description: ""
   /api/register/:
     post:
       operationId: api_register_create
       tags:
-      - api
+        - api
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/User'
+              $ref: "#/components/schemas/User"
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/User'
+              $ref: "#/components/schemas/User"
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/User'
+              $ref: "#/components/schemas/User"
         required: true
       security:
-      - tokenAuth: []
-      - {}
+        - tokenAuth: []
+        - {}
       responses:
-        '201':
+        "201":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
-          description: ''
+                $ref: "#/components/schemas/User"
+          description: ""
   /api/video/:
     post:
       operationId: api_video_create
       tags:
-      - api
+        - api
       security:
-      - tokenAuth: []
-      - {}
+        - tokenAuth: []
+        - {}
       responses:
-        '200':
+        "200":
           description: No response body
   /api/video/{id}/:
     get:
       operationId: api_video_retrieve
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this video.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this video.
+          required: true
       tags:
-      - api
+        - api
       security:
-      - tokenAuth: []
-      - {}
+        - tokenAuth: []
+        - {}
       responses:
-        '200':
+        "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ListVideoDetail'
-          description: ''
+                $ref: "#/components/schemas/ListVideoDetail"
+          description: ""
   /api/video/{id}/review/:
     get:
       operationId: api_video_review_list
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this review.
-        required: true
-      - name: page
-        required: false
-        in: query
-        description: A page number within the paginated result set.
-        schema:
-          type: integer
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this review.
+          required: true
+        - name: page
+          required: false
+          in: query
+          description: A page number within the paginated result set.
+          schema:
+            type: integer
       tags:
-      - api
+        - api
       security:
-      - tokenAuth: []
+        - tokenAuth: []
       responses:
-        '200':
+        "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PaginatedReviewList'
-          description: ''
+                $ref: "#/components/schemas/PaginatedReviewList"
+          description: ""
     post:
       operationId: api_video_review_create
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this review.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this review.
+          required: true
       tags:
-      - api
+        - api
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Review'
+              $ref: "#/components/schemas/Review"
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/Review'
+              $ref: "#/components/schemas/Review"
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/Review'
+              $ref: "#/components/schemas/Review"
         required: true
       security:
-      - tokenAuth: []
+        - tokenAuth: []
       responses:
-        '201':
+        "201":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Review'
-          description: ''
+                $ref: "#/components/schemas/Review"
+          description: ""
   /api/video/review/{id}/:
     get:
       operationId: api_video_review_retrieve
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this review.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this review.
+          required: true
       tags:
-      - api
+        - api
       security:
-      - tokenAuth: []
+        - tokenAuth: []
       responses:
-        '200':
+        "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Review'
-          description: ''
+                $ref: "#/components/schemas/Review"
+          description: ""
     patch:
       operationId: api_video_review_partial_update
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this review.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this review.
+          required: true
       tags:
-      - api
+        - api
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PatchedReview'
+              $ref: "#/components/schemas/PatchedReview"
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/PatchedReview'
+              $ref: "#/components/schemas/PatchedReview"
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/PatchedReview'
+              $ref: "#/components/schemas/PatchedReview"
       security:
-      - tokenAuth: []
+        - tokenAuth: []
       responses:
-        '200':
+        "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Review'
-          description: ''
+                $ref: "#/components/schemas/Review"
+          description: ""
     delete:
       operationId: api_video_review_destroy
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this review.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this review.
+          required: true
       tags:
-      - api
+        - api
       security:
-      - tokenAuth: []
+        - tokenAuth: []
       responses:
-        '204':
+        "204":
           description: No response body
   /api/videos/:
     get:
       operationId: api_videos_list
       parameters:
-      - name: pagina
-        required: false
-        in: query
-        description: A page number within the paginated result set.
-        schema:
-          type: integer
-      - name: total_resultados
-        required: false
-        in: query
-        description: Number of results to return per page.
-        schema:
-          type: integer
+        - name: pagina
+          required: false
+          in: query
+          description: A page number within the paginated result set.
+          schema:
+            type: integer
+        - name: total_resultados
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
       tags:
-      - api
+        - api
       security:
-      - tokenAuth: []
-      - {}
+        - tokenAuth: []
+        - {}
       responses:
-        '200':
+        "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PaginatedListTopVideoList'
-          description: ''
+                $ref: "#/components/schemas/PaginatedListTopVideoList"
+          description: ""
 components:
   schemas:
     AuthToken:
@@ -385,9 +385,9 @@ components:
           type: string
           readOnly: true
       required:
-      - password
-      - token
-      - username
+        - password
+        - token
+        - username
     ListTopVideo:
       type: object
       properties:
@@ -408,10 +408,10 @@ components:
           maximum: 2147483647
           minimum: 0
       required:
-      - id
-      - link
-      - thumbnail
-      - title
+        - id
+        - link
+        - thumbnail
+        - title
     ListVideoDetail:
       type: object
       properties:
@@ -422,7 +422,7 @@ components:
         reviews:
           type: array
           items:
-            $ref: '#/components/schemas/Review'
+            $ref: "#/components/schemas/Review"
           readOnly: true
         title:
           type: string
@@ -437,11 +437,11 @@ components:
           maximum: 2147483647
           minimum: 0
       required:
-      - id
-      - link
-      - reviews
-      - thumbnail
-      - title
+        - id
+        - link
+        - reviews
+        - thumbnail
+        - title
     PaginatedListTopVideoList:
       type: object
       properties:
@@ -461,7 +461,7 @@ components:
         results:
           type: array
           items:
-            $ref: '#/components/schemas/ListTopVideo'
+            $ref: "#/components/schemas/ListTopVideo"
     PaginatedReviewList:
       type: object
       properties:
@@ -481,7 +481,7 @@ components:
         results:
           type: array
           items:
-            $ref: '#/components/schemas/Review'
+            $ref: "#/components/schemas/Review"
     PaginatedUserList:
       type: object
       properties:
@@ -501,7 +501,7 @@ components:
         results:
           type: array
           items:
-            $ref: '#/components/schemas/User'
+            $ref: "#/components/schemas/User"
     PatchedReview:
       type: object
       properties:
@@ -511,11 +511,11 @@ components:
           readOnly: true
         user:
           allOf:
-          - $ref: '#/components/schemas/User'
+            - $ref: "#/components/schemas/User"
           readOnly: true
         video:
           allOf:
-          - $ref: '#/components/schemas/VideoListDetail'
+            - $ref: "#/components/schemas/VideoListDetail"
           readOnly: true
         text:
           type: string
@@ -548,17 +548,18 @@ components:
         videos:
           type: array
           items:
-            $ref: '#/components/schemas/VideoList'
+            $ref: "#/components/schemas/VideoList"
           readOnly: true
         reviews:
           type: array
           items:
-            $ref: '#/components/schemas/UserReview'
+            $ref: "#/components/schemas/UserReview"
           readOnly: true
         is_active:
           type: boolean
           title: Active
-          description: Designates whether this user should be treated as active. Unselect
+          description:
+            Designates whether this user should be treated as active. Unselect
             this instead of deleting accounts.
     PatchedUserRetriveUpdate:
       type: object
@@ -580,12 +581,12 @@ components:
         videos:
           type: array
           items:
-            $ref: '#/components/schemas/VideoList'
+            $ref: "#/components/schemas/VideoList"
           readOnly: true
         reviews:
           type: array
           items:
-            $ref: '#/components/schemas/UserReview'
+            $ref: "#/components/schemas/UserReview"
           readOnly: true
     Review:
       type: object
@@ -596,11 +597,11 @@ components:
           readOnly: true
         user:
           allOf:
-          - $ref: '#/components/schemas/User'
+            - $ref: "#/components/schemas/User"
           readOnly: true
         video:
           allOf:
-          - $ref: '#/components/schemas/VideoListDetail'
+            - $ref: "#/components/schemas/VideoListDetail"
           readOnly: true
         text:
           type: string
@@ -614,12 +615,12 @@ components:
           format: date
           readOnly: true
       required:
-      - created_at
-      - id
-      - rating
-      - text
-      - user
-      - video
+        - created_at
+        - id
+        - rating
+        - text
+        - user
+        - video
     SoftDelete:
       type: object
       properties:
@@ -640,25 +641,26 @@ components:
         videos:
           type: array
           items:
-            $ref: '#/components/schemas/VideoList'
+            $ref: "#/components/schemas/VideoList"
           readOnly: true
         reviews:
           type: array
           items:
-            $ref: '#/components/schemas/UserReview'
+            $ref: "#/components/schemas/UserReview"
           readOnly: true
         is_active:
           type: boolean
           title: Active
-          description: Designates whether this user should be treated as active. Unselect
+          description:
+            Designates whether this user should be treated as active. Unselect
             this instead of deleting accounts.
       required:
-      - email
-      - id
-      - name
-      - reviews
-      - username
-      - videos
+        - email
+        - id
+        - name
+        - reviews
+        - username
+        - videos
     User:
       type: object
       properties:
@@ -681,11 +683,11 @@ components:
           format: email
           maxLength: 128
       required:
-      - email
-      - id
-      - name
-      - password
-      - username
+        - email
+        - id
+        - name
+        - password
+        - username
     UserRetriveUpdate:
       type: object
       properties:
@@ -706,20 +708,20 @@ components:
         videos:
           type: array
           items:
-            $ref: '#/components/schemas/VideoList'
+            $ref: "#/components/schemas/VideoList"
           readOnly: true
         reviews:
           type: array
           items:
-            $ref: '#/components/schemas/UserReview'
+            $ref: "#/components/schemas/UserReview"
           readOnly: true
       required:
-      - email
-      - id
-      - name
-      - reviews
-      - username
-      - videos
+        - email
+        - id
+        - name
+        - reviews
+        - username
+        - videos
     UserReview:
       type: object
       properties:
@@ -745,12 +747,12 @@ components:
           type: string
           format: uuid
       required:
-      - created_at
-      - id
-      - rating
-      - text
-      - user
-      - video
+        - created_at
+        - id
+        - rating
+        - text
+        - user
+        - video
     VideoList:
       type: object
       properties:
@@ -771,10 +773,10 @@ components:
           maximum: 2147483647
           minimum: 0
       required:
-      - id
-      - link
-      - thumbnail
-      - title
+        - id
+        - link
+        - thumbnail
+        - title
     VideoListDetail:
       type: object
       properties:
@@ -795,10 +797,10 @@ components:
           maximum: 2147483647
           minimum: 0
       required:
-      - id
-      - link
-      - thumbnail
-      - title
+        - id
+        - link
+        - thumbnail
+        - title
   securitySchemes:
     tokenAuth:
       type: apiKey
