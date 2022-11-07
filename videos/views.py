@@ -20,10 +20,10 @@ class CreateVideoView(APIView):
         try:
             yt = YouTube(request.data["link"])
             video = yt.streams.filter(progressive=True).last()
-            video.download(output_path="./media", filename="video")
+            video.download(output_path="./media", filename="video.mp4")
         except KeyError:
             return Response({"message": "invalid link"}, status.HTTP_400_BAD_REQUEST)
-        my_file = open("./media/video", "rb")
+        my_file = open("./media/video.mp4", "rb")
         response = requests.post("https://file.io", files={"file": my_file})
         my_file.close()
         resposta = {
