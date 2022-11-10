@@ -3,7 +3,7 @@ from rest_framework.views import APIView, status
 from rest_framework.response import Response
 from rest_framework import generics
 from pytube import YouTube
-
+import os
 from psytube.pagination import CustomPageNumberPagination
 from .models import Video
 from .serializers import ListVideoDetailSerializer, VideoSerializer, VideoPostSerializer, ListTopVideoSerializer
@@ -19,15 +19,20 @@ class CreateVideoView(APIView):
     def post(self, request):
         try:
             yt = YouTube(request.data["link"])
-            video = yt.streams.filter(progressive=True).last()
-            video.download(output_path="./media", filename="video.mp4")
+            if request.data.get("type") == "audio":
+                video = yt.streams.filter(only_audio=True).last()
+            else:
+                video = yt.streams.filter(progressive=True).last()
+            file_name = yt.title.replace('"', "'")
+            video.download(output_path="./media", filename=f"{file_name}.mp4")
         except KeyError:
             return Response({"message": "invalid link"}, status.HTTP_400_BAD_REQUEST)
-        my_file = open("./media/video.mp4", "rb")
+        my_file = open(f"./media/{file_name}.mp4", "rb")
         response = requests.post("https://file.io", files={"file": my_file})
         my_file.close()
+        os.remove(f"./media/{file_name}.mp4")
         resposta = {
-            "title": yt.title,
+            "title": file_name,
             "thumbnail": yt.thumbnail_url,
         }
         serializer = VideoSerializer(data=resposta)
